@@ -4,6 +4,6 @@ import com.samya.insertInventoryData.model.Product;
 
 public interface ProductServiceInterface {
 	
-	 public String save(Product product);
+	 public Product save(Product product);
 
 }

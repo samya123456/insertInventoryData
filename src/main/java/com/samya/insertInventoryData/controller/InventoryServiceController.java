@@ -1,5 +1,7 @@
 package com.samya.insertInventoryData.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,13 @@ public class InventoryServiceController {
 	public String insertInventoryData(@RequestBody Product product) {
 		operationService.save(product);
 		return "Succes";
+		
+	}
+	
+	@RequestMapping("/getAllProducts")
+	public List<Product> insertInventoryData() {
+		return operationService.listAll();
+		
 		
 	}
 
