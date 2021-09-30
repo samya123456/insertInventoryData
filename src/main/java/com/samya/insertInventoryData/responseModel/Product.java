@@ -1,34 +1,13 @@
-package com.samya.insertInventoryData.model;
+package com.samya.insertInventoryData.responseModel;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@Entity
-@Table(name = "T_PRODUCT")
-@XmlRootElement
 public class Product {
 	
 	
-
-	@Id
-	@Column(name = "product_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="product_seq")
-	@TableGenerator(name="product_seq",table="product_seq" ,initialValue=0,allocationSize=1000)
 	private Integer productId;
-	@Column(name = "product_code")
 	private String productCode;
-	@Column(name = "product_name")
 	private String productName;
-	@Column(name = "product_company_id")
 	private Integer  productCompanyId;
-	@Column(name = "product_quantity")
 	private Integer productQuantity;
 	
 	public Integer getProductQuantity() {
@@ -61,6 +40,24 @@ public class Product {
 	public void setProductCompanyId(Integer productCompanyId) {
 		this.productCompanyId = productCompanyId;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj)
+            return true;
+		 if(obj == null || obj.getClass()!= this.getClass())
+	            return false;
+		Product p = (Product)obj;
+		return p.getProductCode().equals(this.getProductCode());
+		
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getProductCode().hashCode();
+	}
+	
+	
 
 	
 

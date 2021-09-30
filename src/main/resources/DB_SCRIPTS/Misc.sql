@@ -1,4 +1,9 @@
 select * from t_product;
-truncate table t_product;
 select * from product_seq;
-drop table product_seq;
+select * from t_company;
+select * from t_product_company;
+
+==========================================
+
+truncate table t_product;
+drop table t_product_company;
