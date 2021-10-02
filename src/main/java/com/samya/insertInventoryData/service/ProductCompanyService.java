@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.samya.insertInventoryData.dao.ProductCompanyDao;
+import com.samya.insertInventoryData.dao.interfaces.ProductCompanyDaoInterface;
 import com.samya.insertInventoryData.responseModel.Company;
 import com.samya.insertInventoryData.responseModel.Product;
 import com.samya.insertInventoryData.responseModel.ProductCompany;
@@ -22,7 +23,7 @@ import com.samya.insertInventoryData.service.inteface.IProductCompanyService;
 public class ProductCompanyService implements IProductCompanyService {
 
 	@Autowired
-	ProductCompanyDao productCompanyDao;
+	ProductCompanyDaoInterface productCompanyDao;
 
 	public List<ProductWiseCompanyList> getAllProductsCompanyWise() throws DataAccessException, SQLException {
 		Map<Product, List<ProductCompany>> productCompanyMap = new HashMap<Product, List<ProductCompany>>();
@@ -58,5 +59,15 @@ public class ProductCompanyService implements IProductCompanyService {
 
 		return productWiseCompanyListList;
 	}
+
+
+	@Override
+	public List<ProductCompany> getAllComapanyOfProduct(Product product) throws DataAccessException, SQLException {
+		
+		return productCompanyDao.getAllComapanyOfProduct(product);
+	}
+
+
+
 
 }

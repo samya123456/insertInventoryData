@@ -46,4 +46,26 @@ public class ProductCompanyDao implements ProductCompanyDaoInterface{
 			    });
 	}
 
+	@Override
+	public List<ProductCompany> getAllComapanyOfProduct(Product product) throws DataAccessException, SQLException {
+		return template.query(Queries.getQuery("SELECT_PRODUCTCOMPANY_PRODUCTWISE"),new Object[]{product.getProductCode()},new RowMapper<ProductCompany>(){  
+		    @Override  
+		    public ProductCompany mapRow(ResultSet rs, int rownumber) throws SQLException {  
+		    	Product product= new Product();
+		    	Company company = new Company();
+		    	ProductCompany productCompany=new ProductCompany();
+		    	product.setProductId(rs.getInt(1));
+		    	product.setProductCode(rs.getString(2));
+		    	product.setProductName(rs.getString(3));
+		    	company.setId(rs.getInt(4));
+		    	company.setCode(rs.getString(5));
+		    	company.setName(rs.getString(6));
+		    	productCompany.setProductcompanyQuantity(rs.getInt(7));
+		    	productCompany.setCompany(company);
+		    	productCompany.setProduct(product);
+		        return productCompany;  
+		    }  
+		    });
+	}
+
 }

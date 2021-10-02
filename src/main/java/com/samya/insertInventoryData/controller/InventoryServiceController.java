@@ -15,6 +15,7 @@ import com.samya.insertInventoryData.dao.ProductDaoJpa;
 import com.samya.insertInventoryData.responseModel.ProductCompany;
 import com.samya.insertInventoryData.responseModel.ProductWiseCompanyList;
 import com.samya.insertInventoryData.service.ProductCompanyService;
+import com.samya.insertInventoryData.service.inteface.IProductCompanyService;
 
 @RestController
 @RequestMapping("/Inventory")
@@ -26,7 +27,7 @@ public class InventoryServiceController {
 	ProductDaoJpa operationService;
 	
 	@Autowired
-	ProductCompanyService productCompanyService;
+	IProductCompanyService productCompanyService;
 	
 	
 	@RequestMapping("/insert")
@@ -39,6 +40,13 @@ public class InventoryServiceController {
 	@RequestMapping("/getAllProducts")
 	public List<Product> getAllProducts() {
 		return operationService.listAll();
+		
+		
+	}
+	
+	@RequestMapping("/allComapanyOfProduct")
+	public List<ProductCompany> getAllComapanyOfProduct(@RequestBody com.samya.insertInventoryData.responseModel.Product product) throws DataAccessException, SQLException {
+		return productCompanyService.getAllComapanyOfProduct(product);
 		
 		
 	}
