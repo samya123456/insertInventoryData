@@ -1,9 +1,10 @@
-select * from t_product;
-select * from product_seq;
-select * from t_company;
-select * from t_product_company;
+select * from t_product order by 1 desc;
+select * from product_seq order by 1 desc;
+select * from t_company order by 1 desc;
+select * from t_product_company order by 1 desc;
+select * from t_product_company_details order by 1 desc;
 
 ==========================================
 
-truncate table t_product;
-drop table t_product_company;
+truncate table product_seq;
+drop table product_seq;

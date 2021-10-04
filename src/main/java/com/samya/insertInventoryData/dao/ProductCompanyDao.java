@@ -68,4 +68,39 @@ public class ProductCompanyDao implements ProductCompanyDaoInterface{
 		    });
 	}
 
+	@Override
+	public List<Company> getAllCompany() throws DataAccessException, SQLException {
+		
+		return template.query(Queries.getQuery("SELECT_ALL_COMPANY"),new RowMapper<Company>(){  
+		    @Override  
+		    public Company mapRow(ResultSet rs, int rownumber) throws SQLException {  
+		    	
+		    	Company company = new Company();
+		    	company.setId(rs.getInt(1));
+		    	company.setCode(rs.getString(2));
+		    	company.setName(rs.getString(3));
+		    	company.setCompanyAddress(rs.getString(4));
+		    	company.setInsertDate(rs.getString(5));
+		        return company;  
+		    }  
+		    });
+	}
+
+	@Override
+	public List<ProductCompany> getProductCompanyIdFromPrdIDnCompID(ProductCompany productCompany)
+			throws DataAccessException, SQLException {
+		// TODO Auto-generated method stub
+		return template.query(Queries.getQuery("SELECT_PRODUCTCOMPANY_PRODUCTID_COMPANYID"),new Object[]{productCompany.getProduct().getProductId()
+				,productCompany.getCompany().getId()},new RowMapper<ProductCompany>(){  
+		    @Override  
+		    public ProductCompany mapRow(ResultSet rs, int rownumber) throws SQLException {  
+		    	productCompany.setProductCompanyId(rs.getInt(1));
+		    	productCompany.setInsertDate(rs.getDate(5));
+		    	return productCompany;
+		    }  
+		    });
+	}
+	
+	
+
 }

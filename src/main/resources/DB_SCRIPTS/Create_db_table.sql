@@ -16,8 +16,8 @@ CREATE TABLE t_product (
 
 CREATE TABLE product_seq (
   next_val INT NOT NULL,
-  sequence_name varchar(255),
-  PRIMARY KEY (next_val)
+  sequence_name varchar(255)
+  
 );
 
 CREATE TABLE t_company(
@@ -35,4 +35,12 @@ company_id integer,
 product_company_quantity integer,
 insert_date date,
 update_date date
+);
+
+CREATE TABLE t_product_company_details(
+product_company_details_id integer not null primary key,
+product_company_id integer ,
+quantity_affected integer,
+mode_of_operation varchar(255),
+insert_date date
 );

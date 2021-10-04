@@ -6,6 +6,21 @@ public class Company {
 	private Integer id;
 	private String code;
 	private String name;
+	private String companyAddress;
+	public String getCompanyAddress() {
+		return companyAddress;
+	}
+	public void setCompanyAddress(String companyAddress) {
+		this.companyAddress = companyAddress;
+	}
+	public String getInsertDate() {
+		return insertDate;
+	}
+	public void setInsertDate(String insertDate) {
+		this.insertDate = insertDate;
+	}
+
+	private String insertDate;
 	public Integer getId() {
 		return id;
 	}

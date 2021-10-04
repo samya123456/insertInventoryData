@@ -11,19 +11,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.samya.insertInventoryData.dao.ProductCompanyDao;
+import com.samya.insertInventoryData.Jpamodel.ProductCompanyDetailsJpa;
+import com.samya.insertInventoryData.Jpamodel.ProductCompanyJpa;
+import com.samya.insertInventoryData.Jpamodel.ProductJpa;
 import com.samya.insertInventoryData.dao.interfaces.ProductCompanyDaoInterface;
+import com.samya.insertInventoryData.dao.interfaces.ProductServiceInterfaceJpa;
 import com.samya.insertInventoryData.responseModel.Company;
 import com.samya.insertInventoryData.responseModel.Product;
 import com.samya.insertInventoryData.responseModel.ProductCompany;
 import com.samya.insertInventoryData.responseModel.ProductWiseCompanyList;
 import com.samya.insertInventoryData.service.inteface.IProductCompanyService;
+import com.samya.insertInventoryData.staticbusinessdata.ModeOfOperationsStatus;
 
 @Service
 public class ProductCompanyService implements IProductCompanyService {
 
 	@Autowired
 	ProductCompanyDaoInterface productCompanyDao;
+	@Autowired
+	ProductServiceInterfaceJpa productDaoJpa;
 
 	public List<ProductWiseCompanyList> getAllProductsCompanyWise() throws DataAccessException, SQLException {
 		Map<Product, List<ProductCompany>> productCompanyMap = new HashMap<Product, List<ProductCompany>>();
@@ -65,6 +71,57 @@ public class ProductCompanyService implements IProductCompanyService {
 	public List<ProductCompany> getAllComapanyOfProduct(Product product) throws DataAccessException, SQLException {
 		
 		return productCompanyDao.getAllComapanyOfProduct(product);
+	}
+	
+	@Override
+	public List<Company> getAllCompany() throws DataAccessException, SQLException{
+		return productCompanyDao.getAllCompany();
+		
+	}
+
+
+	@Override
+	public ProductCompany addNewProduct(ProductCompany productCompany) {
+		
+		return productDaoJpa.addNewProduct(productCompany);
+	}
+
+
+	@Override
+	public List<ProductJpa> getAllProducts() {
+		// TODO Auto-generated method stub
+		return productDaoJpa.listAll();
+	}
+
+
+	@Override
+	public ProductCompany updateProductCompanyQuantity(ProductCompany productCompany) throws DataAccessException, SQLException {
+		// TODO Auto-generated method stub
+		long now = System.currentTimeMillis();
+		java.sql.Date currentSqlDate = new java.sql.Date(now);
+		productCompany= productCompanyDao.getProductCompanyIdFromPrdIDnCompID(productCompany).get(0);
+		
+		ProductCompanyJpa productCompanyJpa = new ProductCompanyJpa();
+		productCompanyJpa.setCompanyId(productCompany.getCompany().getId());
+		productCompanyJpa.setProductId(productCompany.getProduct().getProductId());
+		productCompanyJpa.setProductCompanyId(productCompany.getProductCompanyId());
+		productCompanyJpa.setProductcompanyQuantity(productCompany.getProductcompanyQuantity());
+		productCompanyJpa.setInsertDate(productCompany.getInsertDate());
+		productCompanyJpa.setUpdateDate(currentSqlDate);
+		
+		productCompanyJpa=productDaoJpa.save(productCompanyJpa);
+		
+		
+		ProductCompanyDetailsJpa productCompanyDetailsJpa = new ProductCompanyDetailsJpa();
+		productCompanyDetailsJpa.setProductCompanyId(productCompany.getProductCompanyId());
+		productCompanyDetailsJpa.setInsertDate(currentSqlDate);
+		productCompanyDetailsJpa.setModeOfOpertion(ModeOfOperationsStatus.PRODUCT_QUANTITY_ADDED);
+		productCompanyDetailsJpa.setQuantityAffected(productCompany.getAddedQuantity());
+		
+		productCompanyDetailsJpa=productDaoJpa.save(productCompanyDetailsJpa);
+		
+		return productCompany;
+		
 	}
 
 

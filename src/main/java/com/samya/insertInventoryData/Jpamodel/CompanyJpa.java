@@ -2,7 +2,7 @@ package com.samya.insertInventoryData.Jpamodel;
 
 
 
-public class Company {
+public class CompanyJpa {
 	private Integer id;
 	private String code;
 	private String name;

@@ -1,6 +1,8 @@
 package com.samya.insertInventoryData.Jpamodel;
 
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "T_PRODUCT")
 @XmlRootElement
-public class Product {
+public class ProductJpa {
 	
 	
 
@@ -30,7 +32,14 @@ public class Product {
 	private Integer  productCompanyId;
 	@Column(name = "product_quantity")
 	private Integer productQuantity;
-	
+	@Column(name = "insert_date")
+	private Date insertDate;
+	public Date getInsertDate() {
+		return insertDate;
+	}
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
+	}
 	public Integer getProductQuantity() {
 		return productQuantity;
 	}

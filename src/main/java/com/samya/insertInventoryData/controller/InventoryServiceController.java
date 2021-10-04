@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.samya.insertInventoryData.Jpamodel.Product;
+import com.samya.insertInventoryData.Jpamodel.ProductJpa;
 import com.samya.insertInventoryData.dao.ProductDaoJpa;
+import com.samya.insertInventoryData.responseModel.Company;
+import com.samya.insertInventoryData.responseModel.Product;
 import com.samya.insertInventoryData.responseModel.ProductCompany;
 import com.samya.insertInventoryData.responseModel.ProductWiseCompanyList;
 import com.samya.insertInventoryData.service.ProductCompanyService;
@@ -23,23 +25,23 @@ import com.samya.insertInventoryData.service.inteface.IProductCompanyService;
 public class InventoryServiceController {
 	
 	
-	@Autowired
-	ProductDaoJpa operationService;
+	
 	
 	@Autowired
 	IProductCompanyService productCompanyService;
 	
 	
-	@RequestMapping("/insert")
-	public String insertInventoryData(@RequestBody Product product) {
-		operationService.save(product);
-		return "Succes";
+	@RequestMapping("/updateQuantity")
+	public ProductCompany updateProductCompanyQuantity(@RequestBody ProductCompany productCompany) throws DataAccessException, SQLException {
+	
+		return productCompanyService.updateProductCompanyQuantity(productCompany);
 		
 	}
 	
 	@RequestMapping("/getAllProducts")
-	public List<Product> getAllProducts() {
-		return operationService.listAll();
+	public List<ProductJpa> getAllProducts() {
+		return productCompanyService.getAllProducts();
+		
 		
 		
 	}
@@ -55,6 +57,18 @@ public class InventoryServiceController {
 	public List<ProductWiseCompanyList> getAllProductsCompanyWise() throws DataAccessException, SQLException {
 		return productCompanyService.getAllProductsCompanyWise();
 		
+		
+	}
+	
+	@RequestMapping("/allCompany")
+	public List<Company> getAllCompany() throws DataAccessException, SQLException{
+		return productCompanyService.getAllCompany();
+		
+	}
+	
+	@RequestMapping("/addProduct")
+	public ProductCompany addNewProduct(@RequestBody ProductCompany productCompany) throws DataAccessException, SQLException{
+		return productCompanyService.addNewProduct(productCompany);
 		
 	}
 
