@@ -72,8 +72,14 @@ public ProductCompany addNewProduct(ProductCompany productCompany) {
 		productCompanyJpa.setCompanyId(productCompany.getCompany().getId());
 		productCompanyJpa.setProductId(productJpa.getProductId());
 		productCompanyJpa.setProductcompanyQuantity(productCompany.getProductcompanyQuantity());
+		productCompanyJpa.setProductPurchasePrice(productCompany.getProductPurchasePrice());
+		productCompanyJpa.setProductSaleMinPrice(productCompany.getProductSaleMinPrice());
+		productCompanyJpa.setProductSaleMaxPrice(productCompany.getProductSaleMaxPrice());
+		productCompanyJpa.setProductSaleCurrecy(productCompany.getProductSaleCurrecy());
+		productCompanyJpa.setProductPurchaseCurrecy(productCompany.getProductPurchaseCurrecy());
 		productCompanyJpa.setInsertDate(currentSqlDate);
 		productCompanyJpa.setUpdateDate(currentSqlDate);
+		
 		
 		productCompanyJpa=productCompanyrepo.save(productCompanyJpa);
 		

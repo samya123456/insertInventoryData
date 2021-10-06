@@ -22,7 +22,7 @@ public class ProductCompanyJpa {
 	@Id
 	@Column(name = "product_company_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="product_seq")
-	@TableGenerator(name="product_seq",table="product_seq" ,initialValue=1100,allocationSize=1000)
+	@TableGenerator(name="product_seq",table="product_seq" ,initialValue=100000,allocationSize=1)
 	private Integer productCompanyId;
 	@Column(name = "company_id")
 	private Integer companyId;
@@ -34,7 +34,47 @@ public class ProductCompanyJpa {
 	private Date insertDate;
 	@Column(name = "update_date")
 	private Date updateDate;
+	@Column(name = "product_purchase_price")
+	private Integer productPurchasePrice;
+	@Column(name = "product_sale_min_price")
+	private Integer productSaleMinPrice;
+	@Column(name = "product_sale_max_price")
+	private Integer productSaleMaxPrice;
+	@Column(name = "product_sale_currency")
+	private String  productSaleCurrecy;
+	@Column(name = "product_purchase_currency")
+	private String  productPurchaseCurrecy;
 	
+	public Integer getProductPurchasePrice() {
+		return productPurchasePrice;
+	}
+	public void setProductPurchasePrice(Integer productPurchasePrice) {
+		this.productPurchasePrice = productPurchasePrice;
+	}
+	public Integer getProductSaleMinPrice() {
+		return productSaleMinPrice;
+	}
+	public void setProductSaleMinPrice(Integer productSaleMinPrice) {
+		this.productSaleMinPrice = productSaleMinPrice;
+	}
+	public Integer getProductSaleMaxPrice() {
+		return productSaleMaxPrice;
+	}
+	public void setProductSaleMaxPrice(Integer productSaleMaxPrice) {
+		this.productSaleMaxPrice = productSaleMaxPrice;
+	}
+	public String getProductSaleCurrecy() {
+		return productSaleCurrecy;
+	}
+	public void setProductSaleCurrecy(String productSaleCurrecy) {
+		this.productSaleCurrecy = productSaleCurrecy;
+	}
+	public String getProductPurchaseCurrecy() {
+		return productPurchaseCurrecy;
+	}
+	public void setProductPurchaseCurrecy(String productPurchaseCurrecy) {
+		this.productPurchaseCurrecy = productPurchaseCurrecy;
+	}
 	
 	
 	

@@ -22,7 +22,7 @@ public class ProductJpa {
 	@Id
 	@Column(name = "product_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="product_seq")
-	@TableGenerator(name="product_seq",table="product_seq" ,initialValue=0,allocationSize=1000)
+	@TableGenerator(name="product_seq",table="product_seq" ,initialValue=6,allocationSize=1)
 	private Integer productId;
 	@Column(name = "product_code")
 	private String productCode;

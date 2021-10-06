@@ -15,7 +15,7 @@ CREATE TABLE t_product (
 
 
 CREATE TABLE product_seq (
-  next_val INT NOT NULL,
+  next_val INT NOT NULL primary key,
   sequence_name varchar(255)
   
 );
@@ -43,4 +43,14 @@ product_company_id integer ,
 quantity_affected integer,
 mode_of_operation varchar(255),
 insert_date date
+);
+
+
+ALTER TABLE t_product_company ADD (
+
+product_purchase_price integer,
+product_purchase_currency varchar(5),
+product_sale_min_price integer,
+product_sale_max_price integer,
+product_sale_currency varchar(5)
 );
