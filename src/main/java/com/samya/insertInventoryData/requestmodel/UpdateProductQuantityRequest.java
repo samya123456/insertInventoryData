@@ -1,15 +1,15 @@
 package com.samya.insertInventoryData.requestmodel;
 
-import com.samya.insertInventoryData.responseModel.ProductBranch;
+import com.samya.insertInventoryData.responseModel.ProductCompanyBranch;
 import com.samya.insertInventoryData.responseModel.ProductCompany;
 
 public class UpdateProductQuantityRequest {
-	private ProductBranch productBranch;
+	private ProductCompanyBranch productBranch;
 	private ProductCompany productCompany;
-	public ProductBranch getProductBranch() {
+	public ProductCompanyBranch getProductBranch() {
 		return productBranch;
 	}
-	public void setProductBranch(ProductBranch productBranch) {
+	public void setProductBranch(ProductCompanyBranch productBranch) {
 		this.productBranch = productBranch;
 	}
 	public ProductCompany getProductCompany() {

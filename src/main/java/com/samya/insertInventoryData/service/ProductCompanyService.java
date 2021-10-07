@@ -1,5 +1,6 @@
 package com.samya.insertInventoryData.service;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,18 +10,21 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.samya.insertInventoryData.Jpamodel.BranchJpa;
+import com.samya.insertInventoryData.Jpamodel.ProductCompanyBranchDetailsJpa;
+import com.samya.insertInventoryData.Jpamodel.ProductCompanyBranchJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductCompanyDetailsJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductCompanyJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductJpa;
+import com.samya.insertInventoryData.dao.interfaces.ProductCompanyBranchDaoInterface;
 import com.samya.insertInventoryData.dao.interfaces.ProductCompanyDaoInterface;
 import com.samya.insertInventoryData.dao.interfaces.ProductServiceInterfaceJpa;
 import com.samya.insertInventoryData.responseModel.Company;
 import com.samya.insertInventoryData.responseModel.Product;
 import com.samya.insertInventoryData.responseModel.ProductCompany;
+import com.samya.insertInventoryData.responseModel.ProductCompanyBranch;
 import com.samya.insertInventoryData.responseModel.ProductWiseCompanyList;
 import com.samya.insertInventoryData.service.inteface.IProductCompanyService;
 import com.samya.insertInventoryData.staticbusinessdata.ModeOfOperationsStatus;
@@ -32,6 +36,9 @@ public class ProductCompanyService implements IProductCompanyService {
 	ProductCompanyDaoInterface productCompanyDao;
 	@Autowired
 	ProductServiceInterfaceJpa productDaoJpa;
+	
+	@Autowired 
+	ProductCompanyBranchDaoInterface productCompanyBranchDao;
 
 	public List<ProductWiseCompanyList> getAllProductsCompanyWise() throws DataAccessException, SQLException {
 		Map<Product, List<ProductCompany>> productCompanyMap = new HashMap<Product, List<ProductCompany>>();
@@ -104,10 +111,22 @@ public class ProductCompanyService implements IProductCompanyService {
 
 
 	@Override
-	public ProductCompany updateProductCompanyQuantity(ProductCompany productCompany) throws DataAccessException, SQLException {
-		// TODO Auto-generated method stub
+	public ProductCompanyBranch updateProductCompanyQuantity(ProductCompanyBranch productCompanyBranch) throws DataAccessException, SQLException {
 		long now = System.currentTimeMillis();
 		java.sql.Date currentSqlDate = new java.sql.Date(now);
+		ProductCompany productCompany =insertProductCompanyTables (productCompanyBranch.getProductCompany(), currentSqlDate);
+		productCompanyBranch.setProductCompany(productCompany);
+		productCompanyBranch=	updateProductCompanyBranchQuantity(productCompanyBranch,currentSqlDate);
+		return productCompanyBranch;
+		
+		
+		
+		
+	}
+	
+	private ProductCompany insertProductCompanyTables(ProductCompany productCompany,Date currentSqlDate) throws DataAccessException, SQLException {
+		
+		
 		productCompany= productCompanyDao.getProductCompanyIdFromPrdIDnCompID(productCompany).get(0);
 		
 		ProductCompanyJpa productCompanyJpa = new ProductCompanyJpa();
@@ -118,6 +137,8 @@ public class ProductCompanyService implements IProductCompanyService {
 		productCompanyJpa.setInsertDate(productCompany.getInsertDate());
 		productCompanyJpa.setUpdateDate(currentSqlDate);
 		
+		
+		//insert into t_product_company
 		productCompanyJpa=productDaoJpa.save(productCompanyJpa);
 		
 		
@@ -127,9 +148,48 @@ public class ProductCompanyService implements IProductCompanyService {
 		productCompanyDetailsJpa.setModeOfOpertion(ModeOfOperationsStatus.PRODUCT_QUANTITY_ADDED);
 		productCompanyDetailsJpa.setQuantityAffected(productCompany.getAddedQuantity());
 		
+		//insert into t_product_company_details
 		productCompanyDetailsJpa=productDaoJpa.save(productCompanyDetailsJpa);
-		
 		return productCompany;
+		
+	}
+
+	
+	
+	private ProductCompanyBranch updateProductCompanyBranchQuantity(ProductCompanyBranch productCompanyBranch ,Date currentSqlDate) throws DataAccessException, SQLException {
+		
+		 productCompanyBranch=	productCompanyBranchDao.getProductCompanyBranchIdFromPrdIDnCompIDnBranchId(productCompanyBranch).get(0);
+		 
+		 ProductCompanyBranchJpa productCompanyBranchJpa = new ProductCompanyBranchJpa();
+		 productCompanyBranchJpa.setBranchCode(productCompanyBranch.getBranch().getBranchCode());
+		 productCompanyBranchJpa.setBranchId(productCompanyBranch.getBranch().getBranchid());
+		 if(productCompanyBranch.getProductCompanyBranchId()==null || productCompanyBranch.getBranchProductCompanyQuantity()==null) {
+			 productCompanyBranchJpa.setBranchProductCompanyQuantity(productCompanyBranch.getProductCompany().getAddedQuantity());
+		 }else {
+			 productCompanyBranchJpa.setBranchProductCompanyQuantity(productCompanyBranch.getBranchProductCompanyQuantity() +
+					 productCompanyBranch.getProductCompany().getAddedQuantity()); 
+			 productCompanyBranchJpa.setProductCompanyBranchId(productCompanyBranch.getProductCompanyBranchId());
+		 }
+		 productCompanyBranchJpa.setCompanyCode(productCompanyBranch.getProductCompany().getCompany().getCode());
+		 productCompanyBranchJpa.setCompanyId(productCompanyBranch.getProductCompany().getCompany().getId());
+		 productCompanyBranchJpa.setCompanyName(productCompanyBranch.getProductCompany().getCompany().getName());
+		 productCompanyBranchJpa.setProductCode(productCompanyBranch.getProductCompany().getProduct().getProductCode());
+		 productCompanyBranchJpa.setProductCompanyId(productCompanyBranch.getProductCompany().getProductCompanyId());
+		 productCompanyBranchJpa.setProductId(productCompanyBranch.getProductCompany().getProduct().getProductId());
+		 productCompanyBranchJpa.setProductName(productCompanyBranch.getProductCompany().getProduct().getProductName());
+		 productCompanyBranchJpa.setUpdateDate(currentSqlDate);
+		 
+		 productCompanyBranchJpa= productDaoJpa.save(productCompanyBranchJpa);
+		 
+		 ProductCompanyBranchDetailsJpa productCompanyBranchDetailsJpa = new ProductCompanyBranchDetailsJpa();
+		 productCompanyBranchDetailsJpa.setProductCompanyBranchId(productCompanyBranchJpa.getProductCompanyBranchId());
+		 productCompanyBranchDetailsJpa.setQuantityAffected(productCompanyBranchJpa.getBranchProductCompanyQuantity());
+		 productCompanyBranchDetailsJpa.setInsertDate(currentSqlDate);
+		 
+		 productDaoJpa.save(productCompanyBranchDetailsJpa);
+		 
+		 return productCompanyBranch;
+		
 		
 	}
 

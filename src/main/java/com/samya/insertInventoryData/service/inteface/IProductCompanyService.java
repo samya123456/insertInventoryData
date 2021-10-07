@@ -11,6 +11,7 @@ import com.samya.insertInventoryData.Jpamodel.ProductJpa;
 import com.samya.insertInventoryData.responseModel.Company;
 import com.samya.insertInventoryData.responseModel.Product;
 import com.samya.insertInventoryData.responseModel.ProductCompany;
+import com.samya.insertInventoryData.responseModel.ProductCompanyBranch;
 import com.samya.insertInventoryData.responseModel.ProductWiseCompanyList;
 
 public interface IProductCompanyService {
@@ -21,7 +22,7 @@ public interface IProductCompanyService {
 	List<Company> getAllCompany() throws DataAccessException, SQLException;
 	ProductCompany addNewProduct(ProductCompany productCompany) ;
 	List<ProductJpa> getAllProducts();
-	public ProductCompany updateProductCompanyQuantity(ProductCompany productCompany) throws DataAccessException, SQLException;
+	public ProductCompanyBranch updateProductCompanyQuantity(ProductCompanyBranch productCompanyBranch) throws DataAccessException, SQLException;
 	
 	public List<BranchJpa> getAllOpenBranchs();
 	

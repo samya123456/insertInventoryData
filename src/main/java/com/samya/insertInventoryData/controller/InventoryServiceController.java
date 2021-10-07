@@ -16,6 +16,7 @@ import com.samya.insertInventoryData.dao.ProductDaoJpa;
 import com.samya.insertInventoryData.responseModel.Company;
 import com.samya.insertInventoryData.responseModel.Product;
 import com.samya.insertInventoryData.responseModel.ProductCompany;
+import com.samya.insertInventoryData.responseModel.ProductCompanyBranch;
 import com.samya.insertInventoryData.responseModel.ProductWiseCompanyList;
 import com.samya.insertInventoryData.service.ProductCompanyService;
 import com.samya.insertInventoryData.service.inteface.IProductCompanyService;
@@ -33,9 +34,9 @@ public class InventoryServiceController {
 	
 	
 	@RequestMapping("/updateQuantity")
-	public ProductCompany updateProductCompanyQuantity(@RequestBody ProductCompany productCompany) throws DataAccessException, SQLException {
+	public ProductCompanyBranch updateProductCompanyQuantity(@RequestBody ProductCompanyBranch productCompanyBranch) throws DataAccessException, SQLException {
 	
-		return productCompanyService.updateProductCompanyQuantity(productCompany);
+		return productCompanyService.updateProductCompanyQuantity(productCompanyBranch);
 		
 	}
 	

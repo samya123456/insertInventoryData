@@ -28,10 +28,6 @@ public class ProductJpa {
 	private String productCode;
 	@Column(name = "product_name")
 	private String productName;
-	@Column(name = "product_company_id")
-	private Integer  productCompanyId;
-	@Column(name = "product_quantity")
-	private Integer productQuantity;
 	@Column(name = "insert_date")
 	private Date insertDate;
 	public Date getInsertDate() {
@@ -40,12 +36,7 @@ public class ProductJpa {
 	public void setInsertDate(Date insertDate) {
 		this.insertDate = insertDate;
 	}
-	public Integer getProductQuantity() {
-		return productQuantity;
-	}
-	public void setProductQuantity(Integer productQuantity) {
-		this.productQuantity = productQuantity;
-	}
+	
 	public Integer getProductId() {
 		return productId;
 	}
@@ -64,13 +55,7 @@ public class ProductJpa {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public Integer getProductCompanyId() {
-		return productCompanyId;
-	}
-	public void setProductCompanyId(Integer productCompanyId) {
-		this.productCompanyId = productCompanyId;
-	}
-
+	
 	
 
 	
