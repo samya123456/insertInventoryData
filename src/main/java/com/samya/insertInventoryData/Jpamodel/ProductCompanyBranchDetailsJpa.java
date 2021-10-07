@@ -27,8 +27,15 @@ public class ProductCompanyBranchDetailsJpa {
 	private Integer quantityAffected;
 	@Column(name = "insert_date")
 	private Date insertDate;
+	@Column(name = "mode_of_operation")
+	private String modeOfOperations;
 	
-	
+	public String getModeOfOperations() {
+		return modeOfOperations;
+	}
+	public void setModeOfOperations(String modeOfOperations) {
+		this.modeOfOperations = modeOfOperations;
+	}
 	public Integer getProductCompanyBranchDetailsId() {
 		return productCompanyBranchDetailsId;
 	}

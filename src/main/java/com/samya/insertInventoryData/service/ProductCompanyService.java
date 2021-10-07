@@ -8,9 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+//import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.samya.insertInventoryData.Jpamodel.BranchJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductCompanyBranchDetailsJpa;
@@ -111,6 +116,10 @@ public class ProductCompanyService implements IProductCompanyService {
 
 
 	@Override
+
+	@Transactional(rollbackFor  = Exception.class, 
+			propagation = Propagation.REQUIRED,
+			isolation = Isolation.READ_COMMITTED)
 	public ProductCompanyBranch updateProductCompanyQuantity(ProductCompanyBranch productCompanyBranch) throws DataAccessException, SQLException {
 		long now = System.currentTimeMillis();
 		java.sql.Date currentSqlDate = new java.sql.Date(now);
@@ -155,21 +164,21 @@ public class ProductCompanyService implements IProductCompanyService {
 	}
 
 	
-	
 	private ProductCompanyBranch updateProductCompanyBranchQuantity(ProductCompanyBranch productCompanyBranch ,Date currentSqlDate) throws DataAccessException, SQLException {
-		
-		 productCompanyBranch=	productCompanyBranchDao.getProductCompanyBranchIdFromPrdIDnCompIDnBranchId(productCompanyBranch).get(0);
-		 
 		 ProductCompanyBranchJpa productCompanyBranchJpa = new ProductCompanyBranchJpa();
-		 productCompanyBranchJpa.setBranchCode(productCompanyBranch.getBranch().getBranchCode());
-		 productCompanyBranchJpa.setBranchId(productCompanyBranch.getBranch().getBranchid());
-		 if(productCompanyBranch.getProductCompanyBranchId()==null || productCompanyBranch.getBranchProductCompanyQuantity()==null) {
+		 List<ProductCompanyBranch> productCompanyBranchList=	productCompanyBranchDao.getProductCompanyBranchIdFromPrdIDnCompIDnBranchId(productCompanyBranch);
+		 if(productCompanyBranchList.size()==0) {
 			 productCompanyBranchJpa.setBranchProductCompanyQuantity(productCompanyBranch.getProductCompany().getAddedQuantity());
 		 }else {
+			 productCompanyBranch = productCompanyBranchList.get(0);
 			 productCompanyBranchJpa.setBranchProductCompanyQuantity(productCompanyBranch.getBranchProductCompanyQuantity() +
 					 productCompanyBranch.getProductCompany().getAddedQuantity()); 
 			 productCompanyBranchJpa.setProductCompanyBranchId(productCompanyBranch.getProductCompanyBranchId());
 		 }
+		
+		 productCompanyBranchJpa.setBranchCode(productCompanyBranch.getBranch().getBranchCode());
+		 productCompanyBranchJpa.setBranchId(productCompanyBranch.getBranch().getBranchid());
+		
 		 productCompanyBranchJpa.setCompanyCode(productCompanyBranch.getProductCompany().getCompany().getCode());
 		 productCompanyBranchJpa.setCompanyId(productCompanyBranch.getProductCompany().getCompany().getId());
 		 productCompanyBranchJpa.setCompanyName(productCompanyBranch.getProductCompany().getCompany().getName());
@@ -184,6 +193,7 @@ public class ProductCompanyService implements IProductCompanyService {
 		 ProductCompanyBranchDetailsJpa productCompanyBranchDetailsJpa = new ProductCompanyBranchDetailsJpa();
 		 productCompanyBranchDetailsJpa.setProductCompanyBranchId(productCompanyBranchJpa.getProductCompanyBranchId());
 		 productCompanyBranchDetailsJpa.setQuantityAffected(productCompanyBranchJpa.getBranchProductCompanyQuantity());
+		 productCompanyBranchDetailsJpa.setModeOfOperations(ModeOfOperationsStatus.PRODUCT_QUANTITY_ADDED);
 		 productCompanyBranchDetailsJpa.setInsertDate(currentSqlDate);
 		 
 		 productDaoJpa.save(productCompanyBranchDetailsJpa);
