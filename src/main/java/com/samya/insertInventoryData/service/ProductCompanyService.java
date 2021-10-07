@@ -9,8 +9,10 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.samya.insertInventoryData.Jpamodel.BranchJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductCompanyDetailsJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductCompanyJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductJpa;
@@ -92,6 +94,13 @@ public class ProductCompanyService implements IProductCompanyService {
 		// TODO Auto-generated method stub
 		return productDaoJpa.listAll();
 	}
+	
+	@Override
+	public List<BranchJpa> getAllOpenBranchs() {
+		// TODO Auto-generated method stub
+		return productDaoJpa.listAllOpenBranch();
+		
+	}
 
 
 	@Override
@@ -123,6 +132,9 @@ public class ProductCompanyService implements IProductCompanyService {
 		return productCompany;
 		
 	}
+
+
+	
 
 
 

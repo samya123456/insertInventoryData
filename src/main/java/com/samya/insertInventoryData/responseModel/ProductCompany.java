@@ -8,8 +8,8 @@ public class ProductCompany {
 	private Integer productcompanyQuantity;	
 	private Integer addedQuantity;	
 	private Product product;
-	private Date insertDate;
-	private Date updateDate;
+	private Date  insertDate;
+	private Date  updateDate;
 	private Integer productPurchasePrice;
 	private Integer productSaleMinPrice;
 	private Integer productSaleMaxPrice;

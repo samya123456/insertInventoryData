@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.samya.insertInventoryData.Jpamodel.BranchJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductJpa;
 import com.samya.insertInventoryData.dao.ProductDaoJpa;
 import com.samya.insertInventoryData.responseModel.Company;
@@ -41,6 +42,14 @@ public class InventoryServiceController {
 	@RequestMapping("/getAllProducts")
 	public List<ProductJpa> getAllProducts() {
 		return productCompanyService.getAllProducts();
+		
+		
+		
+	}
+	
+	@RequestMapping("/allBranches")
+	public List<BranchJpa> getAllBranchs() {
+		return productCompanyService.getAllOpenBranchs();
 		
 		
 		

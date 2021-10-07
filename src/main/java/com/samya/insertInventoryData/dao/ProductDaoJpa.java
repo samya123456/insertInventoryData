@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.samya.insertInventoryData.Jpamodel.BranchJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductCompanyDetailsJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductCompanyJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductJpa;
 import com.samya.insertInventoryData.dao.interfaces.ProductServiceInterfaceJpa;
+import com.samya.insertInventoryData.dao.repository.BranchRepo;
 import com.samya.insertInventoryData.dao.repository.ProductCompanyDetailsRepository;
 import com.samya.insertInventoryData.dao.repository.ProductCompanyRepository;
 import com.samya.insertInventoryData.dao.repository.ProductRepository;
@@ -21,6 +23,10 @@ public class ProductDaoJpa implements ProductServiceInterfaceJpa{
 	
 	 @Autowired
 	 private ProductRepository productRepo;
+	 
+	 
+	 @Autowired
+	 private BranchRepo branchRepo;
 	 
 	 
 	 @Autowired
@@ -52,6 +58,12 @@ public class ProductDaoJpa implements ProductServiceInterfaceJpa{
 	public List<ProductJpa> listAll() {
         return productRepo.findAll();
     }
+	
+	@Override
+	public List<BranchJpa> listAllOpenBranch() {
+		// TODO Auto-generated method stub
+		return branchRepo.findAllBybranchStatus("OPEN");
+	}
 	
 	
 public ProductCompany addNewProduct(ProductCompany productCompany) {
@@ -95,6 +107,8 @@ public ProductCompany addNewProduct(ProductCompany productCompany) {
 		
 		return productCompany;
 	}
+
+
 
 
 	
