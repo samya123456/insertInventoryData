@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.samya.insertInventoryData.Jpamodel.BranchJpa;
+import com.samya.insertInventoryData.Jpamodel.ProductCompanyBranchDetailsJpa;
+import com.samya.insertInventoryData.Jpamodel.ProductCompanyBranchJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductCompanyDetailsJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductCompanyJpa;
 import com.samya.insertInventoryData.Jpamodel.ProductJpa;
+import com.samya.insertInventoryData.dao.interfaces.ProductCompanyBranchDaoInterface;
 import com.samya.insertInventoryData.dao.interfaces.ProductServiceInterfaceJpa;
 import com.samya.insertInventoryData.dao.repository.BranchRepo;
+import com.samya.insertInventoryData.dao.repository.ProductCompanyBranchDetailsRepository;
+import com.samya.insertInventoryData.dao.repository.ProductCompanyBranchRepository;
 import com.samya.insertInventoryData.dao.repository.ProductCompanyDetailsRepository;
 import com.samya.insertInventoryData.dao.repository.ProductCompanyRepository;
 import com.samya.insertInventoryData.dao.repository.ProductRepository;
@@ -35,6 +40,12 @@ public class ProductDaoJpa implements ProductServiceInterfaceJpa{
 	 @Autowired
 	 private ProductCompanyDetailsRepository productCompanyDetailsrepo;
 	 
+	 @Autowired
+	 private ProductCompanyBranchRepository productCompanyBranchRepository;
+	 
+	 @Autowired
+	 private ProductCompanyBranchDetailsRepository productCompanyBranchDetailsRepository;
+	 
 
 	@Override
 	public ProductJpa save(ProductJpa product) {
@@ -46,6 +57,19 @@ public class ProductDaoJpa implements ProductServiceInterfaceJpa{
 	public ProductCompanyJpa save(ProductCompanyJpa productCompanyJpa) {
 		return 	productCompanyrepo.save(productCompanyJpa);
 		
+	}
+	
+	
+	@Override
+	public ProductCompanyBranchJpa save(ProductCompanyBranchJpa productCompanyBranchJpa) {
+		// TODO Auto-generated method stub
+		return productCompanyBranchRepository.save(productCompanyBranchJpa);
+	}
+
+	@Override
+	public ProductCompanyBranchDetailsJpa save(ProductCompanyBranchDetailsJpa productCompanyBranchDetailsJpa) {
+		// TODO Auto-generated method stub
+		return productCompanyBranchDetailsRepository.save(productCompanyBranchDetailsJpa);
 	}
 	
 	
@@ -107,6 +131,8 @@ public ProductCompany addNewProduct(ProductCompany productCompany) {
 		
 		return productCompany;
 	}
+
+
 
 
 
