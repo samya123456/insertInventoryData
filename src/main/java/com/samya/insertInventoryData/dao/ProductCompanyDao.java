@@ -61,6 +61,11 @@ public class ProductCompanyDao implements ProductCompanyDaoInterface{
 		    	company.setCode(rs.getString(5));
 		    	company.setName(rs.getString(6));
 		    	productCompany.setProductcompanyQuantity(rs.getInt(7));
+		    	productCompany.setProductPurchasePrice(rs.getInt(8));
+		    	productCompany.setProductPurchaseCurrecy(rs.getString(9));
+		    	productCompany.setProductSaleMinPrice(rs.getInt(10));
+		    	productCompany.setProductSaleMaxPrice(rs.getInt(11));
+		    	productCompany.setProductSaleCurrecy(rs.getString(12));
 		    	productCompany.setCompany(company);
 		    	productCompany.setProduct(product);
 		        return productCompany;  
