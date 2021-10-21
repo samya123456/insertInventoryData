@@ -67,10 +67,7 @@ product_id  integer,
 company_id integer,
 product_company_id integer ,
 product_code varchar(255),
-product_name varchar(255),
 company_code varchar(255),
-company_name varchar(255),
-branch_code varchar(255),
 branch_product_company_quantity integer,
 update_date date
 );

@@ -120,7 +120,7 @@ public class ProductCompanyService implements IProductCompanyService {
 	@Transactional(rollbackFor  = Exception.class, 
 			propagation = Propagation.REQUIRED,
 			isolation = Isolation.READ_COMMITTED)
-	public ProductCompanyBranch updateProductCompanyQuantity(ProductCompanyBranch productCompanyBranch) throws DataAccessException, SQLException {
+	    public ProductCompanyBranch updateProductCompanyQuantity(ProductCompanyBranch productCompanyBranch) throws DataAccessException, SQLException {
 		long now = System.currentTimeMillis();
 		java.sql.Date currentSqlDate = new java.sql.Date(now);
 		ProductCompany productCompany =insertProductCompanyTables (productCompanyBranch.getProductCompany(), currentSqlDate);
