@@ -15,6 +15,13 @@ public class ProductCompany {
 	private Integer productSaleMaxPrice;
 	private String  productSaleCurrecy;
 	private String  productPurchaseCurrecy;
+	private String modeOfOpertion;
+	public String getModeOfOpertion() {
+		return modeOfOpertion;
+	}
+	public void setModeOfOpertion(String modeOfOpertion) {
+		this.modeOfOpertion = modeOfOpertion;
+	}
 	public Date getUpdateDate() {
 		return updateDate;
 	}

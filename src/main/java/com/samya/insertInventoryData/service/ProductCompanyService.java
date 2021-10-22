@@ -154,7 +154,7 @@ public class ProductCompanyService implements IProductCompanyService {
 		ProductCompanyDetailsJpa productCompanyDetailsJpa = new ProductCompanyDetailsJpa();
 		productCompanyDetailsJpa.setProductCompanyId(productCompany.getProductCompanyId());
 		productCompanyDetailsJpa.setInsertDate(currentSqlDate);
-		productCompanyDetailsJpa.setModeOfOpertion(ModeOfOperationsStatus.PRODUCT_QUANTITY_ADDED);
+		productCompanyDetailsJpa.setModeOfOpertion(productCompany.getModeOfOpertion());
 		productCompanyDetailsJpa.setQuantityAffected(productCompany.getAddedQuantity());
 		
 		//insert into t_product_company_details
@@ -193,7 +193,7 @@ public class ProductCompanyService implements IProductCompanyService {
 		 ProductCompanyBranchDetailsJpa productCompanyBranchDetailsJpa = new ProductCompanyBranchDetailsJpa();
 		 productCompanyBranchDetailsJpa.setProductCompanyBranchId(productCompanyBranchJpa.getProductCompanyBranchId());
 		 productCompanyBranchDetailsJpa.setQuantityAffected(productCompanyBranchJpa.getBranchProductCompanyQuantity());
-		 productCompanyBranchDetailsJpa.setModeOfOperations(ModeOfOperationsStatus.PRODUCT_QUANTITY_ADDED);
+		 productCompanyBranchDetailsJpa.setModeOfOperations(productCompanyBranch.getProductCompany().getModeOfOpertion());
 		 productCompanyBranchDetailsJpa.setInsertDate(currentSqlDate);
 		 
 		 productDaoJpa.save(productCompanyBranchDetailsJpa);

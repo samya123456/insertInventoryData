@@ -26,6 +26,15 @@ public class ProductCompanyDetailsJpa {
 	private Integer productCompanyDetailsId;
 	@Column(name = "product_company_id")
 	private Integer productCompanyId;
+	@Column(name = "quantity_affected")
+	private Integer quantityAffected;
+	
+	@Column(name = "mode_of_operation")
+	private String modeOfOpertion;
+	
+	@Column(name = "insert_date")
+	private Date insertDate;
+	
 	
 	public Integer getProductCompanyDetailId() {
 		return productCompanyDetailsId;
@@ -67,14 +76,6 @@ public class ProductCompanyDetailsJpa {
 		this.insertDate = insertDate;
 	}
 
-	@Column(name = "quantity_affected")
-	private Integer quantityAffected;
-	
-	@Column(name = "mode_of_operation")
-	private String modeOfOpertion;
-	
-	@Column(name = "insert_date")
-	private Date insertDate;
 	
 
 	

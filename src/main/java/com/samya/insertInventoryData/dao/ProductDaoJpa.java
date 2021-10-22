@@ -122,7 +122,7 @@ public ProductCompany addNewProduct(ProductCompany productCompany) {
 		
 		ProductCompanyDetailsJpa productCompanyDetailsJpa = new ProductCompanyDetailsJpa();
 		productCompanyDetailsJpa.setProductCompanyId(productCompanyJpa.getProductCompanyId());
-		productCompanyDetailsJpa.setModeOfOpertion(ModeOfOperationsStatus.NEW_PRODUCT_ADDED);
+		productCompanyDetailsJpa.setModeOfOpertion(productCompany.getModeOfOpertion());
 		productCompanyDetailsJpa.setQuantityAffected(productCompanyJpa.getProductcompanyQuantity());
 		productCompanyDetailsJpa.setInsertDate(currentSqlDate);
 		
